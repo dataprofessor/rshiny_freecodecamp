@@ -13,8 +13,10 @@ library(RCurl)
 library(randomForest)
 
 # Read data
-weather <- read.csv(text = getURL("https://raw.githubusercontent.com/dataprofessor/data/master/weather-weka.csv") )
-
+weather <- read.csv(text = getURL("https://raw.githubusercontent.com/dataprofessor/data/master/weather-weka.csv"), 
+                    stringsAsFactors=TRUE) ### automatic conversion of characters to factors have been deprecated 
+                                           ### use stringAsFactors = TRUE to simulate the autoconversion of character to factors
+                                           ### check out this (https://blog.r-project.org/2020/02/16/stringsasfactors/) documentation by Kurt Hornik about the reasoning behind R's decision of altering this default behaviour
 # Build model
 model <- randomForest(play ~ ., data = weather, ntree = 500, mtry = 4, importance = TRUE)
 
